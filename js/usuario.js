@@ -1,5 +1,5 @@
 //funciones js para el modulo de usuarios
-const urlApi = "localhost:9000";//colocar la url con el puerto
+const urlApi = "http://localhost:9000";//colocar la url con el puerto
 
 async function login(){
     var myForm = document.getElementById("myForm");
@@ -83,7 +83,7 @@ function eliminaUsuario(id){
     fetch(urlApi+"/usuario/"+id,settings)
     .then(response => response.json())
     .then(function(data){
-        listar();
+        listarUsuarios();
         alertas("Se ha eliminado el usuario exitosamente!",2)
     })
 }
@@ -146,7 +146,7 @@ async function modificarUsuario(id){
         },
         body: JSON.stringify(jsonData)
     });
-    listar();
+    listarUsuarios();
     alertas("Se ha modificado el usuario exitosamente!",1)
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario')
@@ -214,6 +214,8 @@ function registerForm(){
                 <input type="text" class="form-control" name="nombre" id="nombre" required> <br>
                 <label for="apellidos"  class="form-label">Last Name</label>
                 <input type="text" class="form-control" name="apellidos" id="apellidos" required> <br>
+                <label for="documento"  class="form-label">document</label>
+                <input type="text" class="form-control" name="documento" id="documento" required> <br>
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email" required> <br>
                 <label for="password" class="form-label">Password</label>
@@ -240,7 +242,7 @@ async function registrarUsuario(){
         },
         body: JSON.stringify(jsonData)
     });
-    listar();
+    listarUsuarios();
     alertas("Se ha registrado el usuario exitosamente!",1)
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario')
