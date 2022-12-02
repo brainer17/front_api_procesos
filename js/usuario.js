@@ -23,7 +23,7 @@ async function login(){
         localStorage.token = respuesta.detail;
 
         //localStorage.token = respuesta;
-        localStorage.email = jsonData.email;      
+        localStorage.correo = jsonData.correo;      
         location.href= "dashboard.html";
     }
 }
