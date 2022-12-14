@@ -26,7 +26,7 @@ function listarArticulos(){
         
             var articulos = `
             <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-list"></i> Listado de Articulos</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-gift"></i> Listado de Articulos</h1>
                 </div>
                   
                 <a href="#" onclick="registerFormArticulo('true')" class="btn btn-outline-success"><i class="fa-solid fa-user-plus"></i></a>
@@ -105,12 +105,13 @@ function verArticulo(codigo){
             if(articulo){                
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Visualizar Articulo</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-gift"></i> Visualizar Articulo</h1>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">Codigo: ${articulo.codigo}</li>
                     <li class="list-group-item">Nombre: ${articulo.nombre}</li>
                     <li class="list-group-item">Descripcion: ${articulo.descripcion}</li>
+                    <li class="list-group-item">Fecha de Registro: ${articulo.fecha_registro}</li>
                     <li class="list-group-item">Stock: ${articulo.stock}</li>
                     <li class="list-group-item">Categoria: ${articulo.categoria.nombre}</li>
                     <li class="list-group-item">Usuario: ${articulo.usuario.nombre}</li>
@@ -130,7 +131,7 @@ function verArticulo(codigo){
 function registerFormArticulo(auth=false){
     cadena = `
             <div class="p-3 mb-2 bg-light text-dark">
-                <h1 class="display-5"><i class="fa-solid fa-square-plus"></i> Registrar Articulo</h1>
+                <h1 class="display-5"><i class="fa-solid fa-gift"></i> Registrar Articulo</h1>
             </div>
               
             <form action="" method="post" id="myFormReg1">
@@ -141,16 +142,10 @@ function registerFormArticulo(auth=false){
             <input type="text" class="form-control" name="nombre" id="nombre" required> <br>
             <label for="descripcion"  class="form-label">Descripcion</label>
             <input type="text" class="form-control" name="descripcion" id="descripcion" required> <br>
-            <label for="fecha_registro"  class="form-label">Fecha registro</label>
+            <label for="fecha_registro"  class="form-label">Fecha de registro</label>
             <input type="date" class="form-control" name="fecha_registro" id="fecha_registro" > <br>
             <label for="stock"  class="form-label">Stock</label>
             <input type="number" class="form-control" name="stock" id="stock" > <br>
-            <div id="prueba" onclick="categoria()">
-                <label  for="categoria">Categoria</label>
-                <select  class="form-control" id="categoria_id" name="categoria_id">
-                 <option class="FORM-CONTROL" selected disable value="">Seleccione</option>
-                </select>
-            </div>
             <br>
             <label for="precio_venta"  class="form-label">Precio venta</label>
             <input type="number" class="form-control" name="precio_venta" id="precio_venta" > <br>
@@ -163,31 +158,7 @@ function registerFormArticulo(auth=false){
             var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
             myModal.toggle();
 }
-async function categoria(){
-        let categoria1 = document.querySelector('#categoria_id');
-        var settings={
-            method: 'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.token
-            },
-        }
-        fetch(urlApi2+"/categorias",settings)
-        .then((response) => response.json())
-        .then(function (data) {
-            let template = ''
-            for(const categorias of data){
-                template += "<option value="+categorias.id_categoria+">"+categorias.nombre+"</option>"
-            }
-           categoria1.innerHTML = template
-        
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        document.getElementById('prueba').onclick = "";
-}
+
 
 
 async function registrarArticulo(auth=false){
@@ -198,6 +169,7 @@ async function registrarArticulo(auth=false){
     for(var [k, v] of formData){//convertimos los datos a json
         jsonData[k] = v;
     }
+   
     console.log("data user ",jsonData);
 
     const request = await fetch(urlApi2+"/articulo", {
