@@ -40,7 +40,7 @@ function listarUsuarios(){
         
             var usuarios = `
             <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-list"></i> Listado de usuarios</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Listado de usuarios</h1>
                 </div>
                   
                 <a href="#" onclick="registerForm('true')" class="btn btn-outline-success"><i class="fa-solid fa-user-plus"></i></a>
@@ -48,9 +48,9 @@ function listarUsuarios(){
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Correo</th>
                         <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -128,15 +128,15 @@ function verModificarUsuario(id){
               
                 <form action="" method="post" id="myForm">
                     <input type="hidden" name="id" id="id" value="${usuario.id}">
-                    <label for="nombre" class="form-label">First Name</label>
+                    <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="nombre" required value="${usuario.nombre}"> <br>
-                    <label for="apellidos"  class="form-label">Last Name</label>
+                    <label for="apellidos"  class="form-label">Apellido</label>
                     <input type="text" class="form-control" name="apellidos" id="apellidos" required value="${usuario.apellidos}"> <br>
-                    <label for="documento"  class="form-label">document</label>
+                    <label for="documento"  class="form-label">Documento</label>
                     <input type="text" class="form-control" name="documento" id="documento" required value="${usuario.documento}"> <br>
-                    <label for="correo" class="form-label">correo</label>
+                    <label for="correo" class="form-label">Correo</label>
                     <input type="correo" class="form-control" name="correo" id="correo" required value="${usuario.correo}"> <br>
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password" required> <br>
                     <button type="button" class="btn btn-outline-warning" 
                         onclick="modificarUsuario('${usuario.id}')">Modificar
@@ -207,21 +207,7 @@ function verUsuario(id){
     })
 }
 
-function alertas(mensaje,tipo){
-    var color ="warning";
-    if(tipo == 1){//success verde
-        color="success"
-    }
-    else{//danger rojo
-        color = "danger"
-    }
-    var alerta =`<div class="alert alert-${color} alert-dismissible fade show" role="alert">
-                    <strong><i class="fa-solid fa-triangle-exclamation"></i></strong>
-                        ${mensaje}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                 </div>`;
-    document.getElementById("alerta").innerHTML = alerta;
-}
+
 
 function registerForm(auth=false){
     cadena = `
@@ -231,15 +217,15 @@ function registerForm(auth=false){
               
             <form action="" method="post" id="myFormReg">
                 <input type="hidden" name="id" id="id">
-                <label for="nombre" class="form-label">First Name</label>
+                <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" name="nombre" id="nombre" required> <br>
-                <label for="apellidos"  class="form-label">Last Name</label>
+                <label for="apellidos"  class="form-label">Apellido</label>
                 <input type="text" class="form-control" name="apellidos" id="apellidos" required> <br>
-                <label for="documento"  class="form-label">document</label>
+                <label for="documento"  class="form-label">Documento</label>
                 <input type="text" class="form-control" name="documento" id="documento" required> <br>
-                <label for="correo" class="form-label">correo</label>
+                <label for="correo" class="form-label">Correo</label>
                 <input type="correo" class="form-control" name="correo" id="correo" required> <br>
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password" name="password" required> <br>
                 <button type="button" class="btn btn-outline-info" onclick="registrarUsuario('${auth}')">Registrar</button>
             </form>`;
@@ -286,6 +272,25 @@ function modalConfirmacion(texto,funcion){
     confirmar.onclick = funcion;
 }
 
+
+function alertas(mensaje,tipo){
+    var color ="warning";
+    if(tipo == 1){//success verde
+        color="success"
+    }
+    else{//danger rojo
+        color = "danger"
+    }
+    var alerta =`<div class="alert alert-${color} alert-dismissible fade show" role="alert">
+                    <strong><i class="fa-solid fa-triangle-exclamation"></i></strong>
+                        ${mensaje}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </div>`;
+    document.getElementById("alerta").innerHTML = alerta;
+}
+
+
+//salir de la session
 function salir(){
     localStorage.clear();
     location.href = "index.html";
