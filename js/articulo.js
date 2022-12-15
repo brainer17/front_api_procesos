@@ -39,8 +39,7 @@ function listarArticulos(){
                     <th scope="col">Descripcion</th>
                     <th scope="col">Fecha de registro</th>
                     <th scope="col">Stock</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Usuario</th>
+                    <th scope="col">Categoria</th>     
                     <th scope="col">Precio de venta</th>
                     <th scope="col">Precio de compra</th>
                     <th scope="col">Action</th>
@@ -59,8 +58,7 @@ function listarArticulos(){
                             <td>${articulo.descripcion}</td>
                             <td>${articulo.fecha_registro}</td>
                             <td>${articulo.stock}</td>
-                            <td>${articulo.categoria.nombre}</td>
-                            <td>${articulo.usuario.nombre}</td>
+                            <th>${articulo.categoria.nombre}</th>
                             <td>${articulo.precio_venta}</td>
                             <td>${articulo.precio_compra}</td>
                             <td>
@@ -147,9 +145,11 @@ function registerFormArticulo(auth=false){
             <label for="stock"  class="form-label">Stock</label>
             <input type="number" class="form-control" name="stock" id="stock" > <br>
             <br>
-            <label for="precio_venta"  class="form-label">Precio venta</label>
+            <label for="categoria" class="form-label">Categoria</label>
+            <input type="number" class="form-control" id="categoria" name="categoria" required> <br>
+            <label for="precio_venta"  class="form-label">Precio de venta</label>
             <input type="number" class="form-control" name="precio_venta" id="precio_venta" > <br>
-            <label for="precio_compra" class="form-label">precio compra</label>
+            <label for="precio_compra" class="form-label">precio de compra</label>
             <input type="number" class="form-control" name="precio_compra" id="precio_compra" required> <br>
                 <button type="button" class="btn btn-outline-info" onclick="registrarArticulo('${auth}')">Registrar</button>
             </form>`;
@@ -169,7 +169,10 @@ async function registrarArticulo(auth=false){
     for(var [k, v] of formData){//convertimos los datos a json
         jsonData[k] = v;
     }
-   
+    var categoria = jsonData.categoria
+    jsonData.categoria = {
+        id: categoria 
+    }
     console.log("data user ",jsonData);
 
     const request = await fetch(urlApi2+"/articulo", {
@@ -188,13 +191,11 @@ async function registrarArticulo(auth=false){
     if(auth){
         listarArticulos();
     }
-    alertas("Se ha registrado la categoria exitosamente!",1)
-    document.getElementById("contentModal").innerHTML = '';
+    alertas("Se ha registrado el articulo exitosamente!",1)
     var myModalEl = document.getElementById('modalUsuario')
     var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
     modal.hide();
 }
-
 
 
 
