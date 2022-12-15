@@ -219,15 +219,10 @@ function verModificarArticulo(codigo){
                 </div>
               
                 <form action="" method="post" id="myForm1">
-                    <input type="hidden" name="id" id="id" value="${articulo.id}">
-                    <label for="codigo"  class="form-label">codigo</label>
-                    <input type="text" class="form-control" name="codigo" id="codigo" value="${articulo.codigo}" required> <br>
-                    <label for="descripcion"  class="form-label">Descripcion</label>
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="nombre" value="${articulo.nombre}" required> <br>
+                    <label for="descripcion" class="form-label">Descripción</label>
                     <input type="text" class="form-control" name="descripcion" id="descripcion" value="${articulo.descripcion}" required> <br>
-                    <label for="categoria" class="form-label">Categoria</label>
-                    <input type="text" class="form-control" id="categoria" name="categoria" value="${articulo.categoria.id}" required> <br>
                     <label for="stock" class="form-label">Stock</label>
                     <input type="number" class="form-control" id="stock" name="stock" value="${articulo.stock}" required> <br>
                     <label for="precio_compra" class="form-label">Precio de compra</label>
@@ -253,7 +248,8 @@ async function modificarArticulo(codigo){
     for(var [k, v] of formData){//convertimos los datos a json
         jsonData[k] = v;
     }
-    const request = await fetch(urlApi2+"/articulo/codigo/"+codigo, {
+
+    const request = await fetch(urlApi2+"/articulo/"+codigo, {
         method: 'PUT',
         headers:{
             'Accept': 'application/json',
